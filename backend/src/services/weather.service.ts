@@ -39,16 +39,59 @@ export async function getWeatherForecast(
     throw error;
   }
 
-  return {
-    latitude: 52.52,
-    longitude: 13.41,
-    elevation: 0,
+  const {
+    latitude,
+    longitude,
+    elevation,
     current_weather: {
-      temperature: 10,
-      windspeed: 10,
-      winddirection: 10,
-      weathercode: 10,
-      time: new Date(),
+      temperature,
+      windspeed,
+      winddirection,
+      weathercode,
+      time,
+    },
+  } = response?.data || {};
+
+  if (
+    latitude == null ||
+    longitude == null ||
+    elevation == null ||
+    temperature == null ||
+    windspeed == null ||
+    winddirection == null ||
+    weathercode == null ||
+    time == null
+  ) {
+    console.log(
+      "One or more extracted data is null or undefined",
+      response?.data
+    );
+    throw new Error("One or more extracted data is null or undefined");
+  }
+
+  return {
+    latitude,
+    longitude,
+    elevation,
+    current_weather: {
+      temperature,
+      windspeed,
+      winddirection,
+      weathercode,
+      time,
     },
   };
+
+  // return {
+  //   latitude: 52.52,
+  //   longitude: 13.41,
+  //   elevation: 0,
+  //   current_weather: {
+  //     temperature: 10,
+  //     windspeed: 10,
+  //     winddirection: 10,
+  //     weathercode: 10,
+  //     time: new Date(),
+  //   },
+  // };
 }
