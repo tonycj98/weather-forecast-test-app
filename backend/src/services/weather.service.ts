@@ -1,3 +1,5 @@
+import { getAPI } from "../adapters/xhr";
+
 export interface ForecastModel {
   latitude: number;
   longitude: number;
@@ -18,6 +20,24 @@ export async function getWeatherForecast(
   // TODO: make a call to this API with latitude and longitude from the frontend
   // use axios to make the call
   //  https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true
+
+  let response: any;
+
+  try {
+    response = await getAPI(
+      `/forecast?latitude=${lat}&longitude=${lng}&current_weather=true`
+    );
+
+    if (response?.statusText !== "OK") {
+      console.error("Response not OK", response);
+      throw new Error("Response not OK");
+    }
+  } catch (error) {
+    console.log(
+      `Error in getAPI "/forecast?latitude=${lat}&longitude=${lng}&current_weather=true"`
+    );
+    throw error;
+  }
 
   return {
     latitude: 52.52,
