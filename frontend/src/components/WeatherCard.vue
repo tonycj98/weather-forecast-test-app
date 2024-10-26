@@ -51,23 +51,57 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { defineProps, computed } from "vue";
+import { ForecastModel } from "@/services/weather-service.service";
 
+const props = defineProps<{
+  weatherData: { data: ForecastModel | null; error: boolean; loading: boolean };
+}>();
+
+const forecast = computed(() => {
+  const nullCurrentWeatherData = {
+    temperature: null,
+    windspeed: null,
+    winddirection: null,
+    weathercode: null,
+    time: null,
+  };
+
+  if (props?.weatherData?.data?.current_weather) {
+    return props?.weatherData?.data;
+  }
+  if (props?.weatherData?.data) {
+    return {
+      ...props?.weatherData?.data,
+      current_weather: nullCurrentWeatherData,
+    };
+  }
+  return {
+    latitude: null,
+    longitude: null,
+    elevation: null,
+    current_weather: nullCurrentWeatherData,
+  };
+});
+
+/*
 const forecast = {
-  latitude: 37.7749,
-  longitude: -122.4194,
-  elevation: 16,
-  current_weather: {
-    temperature: 38,
-    windspeed: 15,
-    winddirection: 180,
-    weathercode: 0,
-    time: new Date(),
+  value: {
+    latitude: 37.7749,
+    longitude: -122.4194,
+    elevation: 16,
+    current_weather: {
+      temperature: 38,
+      windspeed: 15,
+      winddirection: 180,
+      weathercode: 0,
+      time: new Date(),
+    },
   },
 };
-
+*/
 const temperatureClass = computed(() => {
-  const temp = forecast.current_weather.temperature;
+  const temp = forecast.value.current_weather.temperature || 0;
   if (temp <= 0) {
     return "from-indogo-500 to-blue-500";
   } else if (temp > 0 && temp <= 15) {

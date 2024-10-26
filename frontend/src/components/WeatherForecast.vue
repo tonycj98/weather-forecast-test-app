@@ -4,7 +4,7 @@
 
     TODO
 
-    <WeatherCard />
+    <WeatherCard :weatherData="weatherData" />
   </div>
 </template>
 
