@@ -1,6 +1,7 @@
 <template>
   <div class="font-poppins flex justify-center min-h-80 my-14">
-    <WeatherCardLoader v-if="weatherData.loading" />
+    <WeatherCardError v-if="weatherData.error" />
+    <WeatherCardLoader v-else-if="weatherData.loading" />
     <div
       v-else
       :class="`h-fit max-w-sm rounded-lg bg-gradient-to-r ${temperatureClass} shadow-lg hover:scale-110 transition-transform`"
@@ -55,6 +56,7 @@
 <script setup lang="ts">
 import { defineProps, computed } from "vue";
 import WeatherCardLoader from "@/components/WeatherCardLoader.vue";
+import WeatherCardError from "@/components/WeatherCardError.vue";
 import { ForecastModel } from "@/services/weather-service.service";
 
 const props = defineProps<{
