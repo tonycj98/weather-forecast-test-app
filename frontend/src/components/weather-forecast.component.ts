@@ -1,17 +1,20 @@
-import WeatherService from '@/services/weather-service.service';
-import { Options, Vue } from 'vue-class-component';
-import { Inject } from 'vue-property-decorator';
+import WeatherService from "@/services/weather-service.service";
+import { Options, Vue } from "vue-class-component";
+import { Inject, Prop, Watch } from "vue-property-decorator";
 
 @Options({
   props: {
-  }
+    place: Object,
+  },
 })
 export default class WeatherForecast extends Vue {
-
-  @Inject('weatherService')
+  @Inject("weatherService")
   public weatherService!: WeatherService;
 
-   
+  @Prop()
+  place!: { lat: number; lng: number } | null;
+
+  /*
   mounted() {
     // TODO - use the latitude and longitude from the search city component
     // TODO - display the weather forecast in the template
@@ -20,7 +23,23 @@ export default class WeatherForecast extends Vue {
       console.log(res);
     });
   }
+  */
 
+  @Watch("place", { immediate: true, deep: true })
+  onPlaceChanged(newPlace: { lat: number; lng: number }) {
+    if (newPlace) {
+      this.fetchWeather(newPlace);
+    }
+  }
+
+  fetchWeather({ lat, lng }: { lat: number; lng: number }) {
+    this.weatherService
+      .getWeatherForecast(lat, lng)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 }
-
-
