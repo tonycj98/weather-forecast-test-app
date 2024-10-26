@@ -1,7 +1,9 @@
 <template>
-  <div class="font-poppins flex justify-center my-14">
+  <div class="font-poppins flex justify-center min-h-80 my-14">
+    <WeatherCardLoader v-if="weatherData.loading" />
     <div
-      :class="`max-w-sm rounded-lg bg-gradient-to-r ${temperatureClass} shadow-lg hover:scale-110 transition-transform`"
+      v-else
+      :class="`h-fit max-w-sm rounded-lg bg-gradient-to-r ${temperatureClass} shadow-lg hover:scale-110 transition-transform`"
     >
       <div class="bg-slate-50 rounded-lg overflow-hidden shadow-lg m-1.5 p-4">
         <h2 class="text-2xl font-bold text-zinc-700">Weather Forecast</h2>
@@ -52,6 +54,7 @@
 
 <script setup lang="ts">
 import { defineProps, computed } from "vue";
+import WeatherCardLoader from "@/components/WeatherCardLoader.vue";
 import { ForecastModel } from "@/services/weather-service.service";
 
 const props = defineProps<{
@@ -114,7 +117,7 @@ const temperatureClass = computed(() => {
 });
 </script>
 
-<style scoped>
+<style>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 @tailwind base;
