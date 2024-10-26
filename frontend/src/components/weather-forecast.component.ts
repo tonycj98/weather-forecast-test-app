@@ -59,8 +59,7 @@ export default class WeatherForecast extends Vue {
     this.weatherService
       .getWeatherForecast(lat, lng)
       .then((res) => {
-        console.log(res);
-        // TODO: Error Handling
+        // TODO: Validate Response if needed
         this.weatherData.data = res;
       })
       .catch((error) => {
