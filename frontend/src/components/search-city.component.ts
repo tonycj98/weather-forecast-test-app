@@ -13,4 +13,12 @@ export default class SearchCity extends Vue {
     };
     this.$emit("place-changed", this.selectedPlace);
   }
+
+  onMapClick(e: any) {
+    this.selectedPlace = {
+      lat: e?.latLng?.lat?.(),
+      lng: e?.latLng?.lng?.(),
+    };
+    this.$emit("place-changed", this.selectedPlace);
+  }
 }
