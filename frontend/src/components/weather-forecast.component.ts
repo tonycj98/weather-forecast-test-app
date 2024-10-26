@@ -1,10 +1,14 @@
 import WeatherService from "@/services/weather-service.service";
 import { Options, Vue } from "vue-class-component";
 import { Inject, Prop, Watch } from "vue-property-decorator";
+import WeatherCard from "@/components/WeatherCard.vue";
 
 @Options({
   props: {
     place: Object,
+  },
+  components: {
+    WeatherCard,
   },
 })
 export default class WeatherForecast extends Vue {
