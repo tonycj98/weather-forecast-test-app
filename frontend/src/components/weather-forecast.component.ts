@@ -39,6 +39,7 @@ export default class WeatherForecast extends Vue {
 
   @Watch("place", { immediate: true, deep: true })
   onPlaceChanged(newPlace: { lat: number; lng: number }) {
+    if (newPlace == null) return;
     if (
       typeof newPlace?.lat != "number" ||
       typeof newPlace?.lng != "number" ||
