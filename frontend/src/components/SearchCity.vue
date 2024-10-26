@@ -19,6 +19,7 @@
       ref="gmap"
       @click="onMapClick"
     >
+      <GMapMarker :options="{ position: selectedPlace }" />
     </GMapMap>
   </div>
 </template>
