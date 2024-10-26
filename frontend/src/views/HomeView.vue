@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <SearchCity />
-    <WeatherForecast />
+    <SearchCity @place-changed="handlePlaceChange" />
+    <WeatherForecast :place="place" />
   </div>
 </template>
 
