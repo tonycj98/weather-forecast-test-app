@@ -103,7 +103,7 @@ const forecast = {
 const temperatureClass = computed(() => {
   const temp = forecast.value.current_weather.temperature || 0;
   if (temp <= 0) {
-    return "from-indogo-500 to-blue-500";
+    return "from-indigo-500 to-blue-500";
   } else if (temp > 0 && temp <= 15) {
     return "from-blue-500 to-cyan-500";
   } else if (temp > 15 && temp <= 30) {
